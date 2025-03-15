@@ -6,6 +6,7 @@
 class Password {
 private:
     std::string _original;  // Version brute du mot de passe
+    // Dans l'idée on ne garde pas du tout le password original en mémoire
     std::string _encrypted; // Version encryptée
 
     void encrypt();
