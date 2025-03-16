@@ -20,6 +20,14 @@ int main() {
     User& retrieved_user = User::fetch(100);
     assert(retrieved_user.authenticate("secure123") && "Connexion échouée.");
 
+
+    User test(9999999, password);
+    test.save();
+
+    std::cout << "id before : " << retrieved_user.id() << std::endl;
+    User& toto = User::fetch(9999999);
+    std::cout << "id after : " << retrieved_user.id() << std::endl;
+
     std::cout << "Tous les tests ont réussi !" << std::endl;
     return 0;
 }

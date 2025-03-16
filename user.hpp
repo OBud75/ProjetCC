@@ -22,6 +22,7 @@ public:
 
     // Récupère un utilisateur depuis le fichier
     static User& fetch(int id);
+    int id();
 };
 
 #endif

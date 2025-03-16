@@ -25,6 +25,10 @@ bool User::authenticate(const std::string& raw_password) {
     return false;
 }
 
+int User::id() {
+    return _id;
+}
+
 // Récupère un utilisateur depuis un fichier
 User& User::fetch(int id) {
     static User dummy(0, Password("", true)); // Utilisateur par défaut
@@ -43,6 +47,20 @@ User& User::fetch(int id) {
             break;
         }
     }
+    // Le fait d'avoir utilisé une variable static induit en erreur ici
+    // (bug pas si simple à trouver si en production pour être honnête c'est le genre de chose qui rend C/C++ difficile)
+    // Le fait de déclarer static fait que l'espace mémoire est alloué une seule fois
+    // autrement dit, dummy est toujours le même objet, même si la fonction get est rappelée
+    // En appellant get(100) puis get(1), cela va retourner le même espace mémoire,
+    // d'abord avec les données de l'user id 100 puis avec les données de l'user id 1
+    // Le problème étant qu'au second appel, cela va donc modifier l'objet User qui avait l'id
+    // 100 retourné la premiere fois, et donc le retourner avec l'id 1
+    // J'ai mis un exemple dans main.cpp pour montrer le problème
 
+    // Pour résoudre le problème, on enlève static User + soit:
+    // - Retourner une copie de l'utilisateur : User User::fetch(int id)
+    // - Retourner un pointeur vers l'utilisateur : User* User::fetch(int id)
+
+    // En python on pourrait avoir le même genre de bug avec des variables statiques / attributs de classes, surtout si la variable est mutable
     return dummy;
 }
