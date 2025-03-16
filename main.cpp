@@ -35,5 +35,7 @@ int main() {
 
 // Il y avait aussi normalement un partie d'exercice à faire en C avec sort et swap
 // Autrement c'est bon : utilisation des références plutôt que des pointeurs quand ce n'est pas necessaire
+// On a du coup vu avec la variable static qu'il est assez facile de faire des erreurs, des fois renvoyer
+// un pointeur est ce dont on a besoin...
 // Si vous continuez à faire du C++ regardez la gestion de la mémoire avec unique_ptr, shared_ptr
 // et la fonction move qui permet de ne pas copier une variable quand on l'initialise
